@@ -1,0 +1,16 @@
+FROM node:18
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+# Prisma generate sí puede correr en build porque solo genera código, no necesita DB
+RUN npx prisma generate
+
+RUN npm run build
+
+# Ejecuta migraciones y luego arranca la app al iniciar el contenedor
+CMD npx prisma migrate dev && node dist/app.js
