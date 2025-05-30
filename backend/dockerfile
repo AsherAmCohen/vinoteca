@@ -13,4 +13,4 @@ RUN npx prisma generate
 RUN npm run build
 
 # Ejecuta migraciones y luego arranca la app al iniciar el contenedor
-CMD npx prisma migrate dev && node dist/app.js
+CMD npx prisma db push && npx prisma db seed && node dist/app.js

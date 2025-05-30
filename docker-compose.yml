@@ -25,7 +25,7 @@ services:
       - mysql
     environment:
       PORT: "3001"
-      FRONTEND_URL: http://localhost:3000
+      FRONTEND_URL: http://localhost
       SECRET_KEY: secret
       INTERNAL_API_KEY: SG9sYU11bmRv*
       EMAIL_USER: vinotecavinoteca123@gmail.com
@@ -39,14 +39,13 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args: 
+        VITE_BACKEND_URL: http://localhost:3001
+        VITE_INTERNAL_API_KEY: SG9sYU11bmRv*
     ports:
       - "80:80"
     depends_on:
       - backend
-    environment: 
-      VITE_BACKEND_URL: http://localhost:3001
-      VITE_INTERNAL_API_KEY: SG9sYU11bmRv*
-      VITE_PORT: 80
     restart: always
 
 volumes:
